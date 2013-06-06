@@ -47,5 +47,3 @@ __PACKAGE__->bootstrap;
 
 
 1;
-
-# ways to load a shared lib?  ExtUtils::Mkbootstrap? DynaLoader? XSLoader...
