@@ -10,7 +10,8 @@
 
 SV* MY_realpath (SV* path) {
     int path_max;
-    char * outbuf;
+    char* outbuf;
+    SV* res;
 #ifdef PATH_MAX
     path_max = PATH_MAX;
 #else
@@ -18,19 +19,20 @@ SV* MY_realpath (SV* path) {
     if (path_max <= 0)
 	path_max = 4096;
 #endif
-    outbuf= alloca(path_max);
+    outbuf= malloc(path_max);
     if (!outbuf)
-	croak("realpath: could not allocate memory (%i bytes) on the stack",path_max);
+	croak("realpath: could not allocate memory (%i bytes)", path_max);
     {
-	char*rv= realpath(SvPV_nolen(path),outbuf);
+	char* rv= realpath(SvPV_nolen(path),outbuf);
 	if (!rv) {
-	    return &PL_sv_undef;
+	    res= &PL_sv_undef;
+	} else {
+	    res= newSVpv(outbuf,0);
 	}
-	//SV*sv= newSVpv(outbuf);
-	//if (!  oder tut die funktion selber schon croaken?
-	// baud_x: the only error is out of memory, in which case the $^M thing gets invoked and your script exists. (IIRC).
-	return newSVpv(outbuf,0);
     }
+ ret:
+    free(outbuf);
+    return res;
 }
 
 SV* MY_xrealpath (SV* path) {

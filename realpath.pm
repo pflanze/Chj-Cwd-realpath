@@ -1,6 +1,6 @@
-# Tue Jun 17 12:03:13 2003  Christian Jaeger, christian.jaeger at ethlife.ethz.ch
+# Tue Jun 17 12:03:13 2003  Christian Jaeger, ch at christianjaeger.ch
 # 
-# Copyright 2003 by Christian Jaeger
+# Copyright 2003,2013 by Christian Jaeger
 # Published under the same terms as perl itself
 #
 # $Id$
@@ -35,7 +35,7 @@ Christian Jaeger
 #'
 
 package Chj::Cwd::realpath;
-$VERSION= "0.1";
+$VERSION= "0.2";
 @EXPORT=qw(realpath xrealpath);
 require Exporter;
 require DynaLoader;
